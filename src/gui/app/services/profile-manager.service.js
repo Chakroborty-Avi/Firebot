@@ -1,11 +1,17 @@
 "use strict";
+
 (function() {
-
-    const profileManager = require("../../backend/common/profile-manager.js");
-
     angular
         .module("firebotApp")
-        .factory("profileManager", function() {
-            return profileManager;
+        .factory("profileManager", function(backendCommunicator) {
+            const getLoggedInProfile = () => {
+                return backendCommunicator.fireEventSync("profiles:get-logged-in-profile", () => {
+                    return this.getLoggedInProfile();
+                });
+            };
+
+            return {
+                getLoggedInProfile
+            };
         });
 }());

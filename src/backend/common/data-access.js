@@ -106,9 +106,9 @@ const createFirebotDataDir = function () {
     }
 };
 
-const getJsonDbInUserData = function (filePath) {
+const getJsonDbInUserData = function (filePath, humanReadable = true) {
     const jsonDbPath = path.join(userDataPath, filePath);
-    return new JsonDB(jsonDbPath, true, true);
+    return new JsonDB(jsonDbPath, true, humanReadable);
 };
 
 const makeDirInUserData = async function (filePath) {

@@ -6,10 +6,10 @@ const logger = require("../logwrapper");
 exports.setupCommonListeners = () => {
 
     const frontendCommunicator = require("./frontend-communicator");
-    const profileManager = require("./profile-manager");
     const { SettingsManager } = require("./settings-manager");
     const { BackupManager } = require("../backup-manager");
     const webServer = require("../../server/http-server-manager");
+    const { restartApp } = require("../app-management/electron/app-helpers");
 
     frontendCommunicator.on("show-twitch-preview", () => {
         const windowManagement = require("../app-management/electron/window-management");
@@ -74,36 +74,12 @@ exports.setupCommonListeners = () => {
 
     // restarts the app
     ipcMain.on("restartApp", () => {
-        const chatModerationManager = require("../chat/moderation/chat-moderation-manager");
-        chatModerationManager.stopService();
-        setTimeout(() => {
-            app.relaunch({ args: process.argv.slice(1).concat(["--relaunch"]) });
-            app.exit(0);
-        }, 100);
+        restartApp();
     });
 
     // Opens the firebot backup folder
     ipcMain.on("open-backup-folder", () => {
         shell.openPath(BackupManager.backupFolderPath);
-    });
-
-    // When we get an event from the renderer to create a new profile.
-    ipcMain.on("createProfile", (_, profileName) => {
-        profileManager.createNewProfile(profileName);
-    });
-
-    // When we get an event from the renderer to delete a particular profile.
-    ipcMain.on("deleteProfile", () => {
-        profileManager.deleteProfile();
-    });
-
-    // Change profile when we get event from renderer
-    ipcMain.on("switchProfile", function(_, profileId) {
-        profileManager.logInProfile(profileId);
-    });
-
-    ipcMain.on("renameProfile", function(_, newProfileId) {
-        profileManager.renameProfile(newProfileId);
     });
 
     // Get Any kind of file Path

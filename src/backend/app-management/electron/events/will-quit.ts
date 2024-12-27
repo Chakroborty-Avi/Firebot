@@ -1,12 +1,9 @@
 import { Event, app } from "electron";
 
 async function cleanup() {
-    const {
-        handleProfileDeletion,
-        handleProfileRename
-    } = require("../../../app-management/profile-tasks");
-    handleProfileRename();
-    handleProfileDeletion();
+    const { ProfileManager } = require("../../../common/profile-manager");
+    ProfileManager.handleProfileRename();
+    ProfileManager.handleProfileDeletion();
 
     const eventManager = require("../../../events/EventManager");
     await eventManager.triggerEvent("firebot", "before-firebot-closed", {

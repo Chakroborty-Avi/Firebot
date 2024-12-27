@@ -1,5 +1,4 @@
 "use strict";
-const profileManager = require("../../backend/common/profile-manager.js");
 const { v4: uuid } = require("uuid");
 
 (function() {
@@ -7,7 +6,7 @@ const { v4: uuid } = require("uuid");
 
     angular
         .module("firebotApp")
-        .factory("hotkeyService", function($rootScope, logger, backendCommunicator) {
+        .factory("hotkeyService", function($rootScope, logger, backendCommunicator, profileManager) {
             const service = {};
 
             /**
@@ -147,7 +146,7 @@ const { v4: uuid } = require("uuid");
                 }
 
                 //clear out any keys that have since been released
-                releasedKeyCodes.forEach(k => {
+                releasedKeyCodes.forEach((k) => {
                     const normalizedK = k.toUpperCase();
                     if (
                         cachedKeys.some(key => key.rawKey.toUpperCase() === normalizedK)

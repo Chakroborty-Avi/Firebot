@@ -2,11 +2,10 @@
 
 (function() {
     //This handles events
-    const profileManager = require("../../backend/common/profile-manager.js");
     const { ipcRenderer } = require("electron");
 
     angular.module("firebotApp").factory("currencyService", function(logger, utilityService,
-        backendCommunicator) {
+        backendCommunicator, profileManager) {
         const service = {};
 
         // The currency settings.
