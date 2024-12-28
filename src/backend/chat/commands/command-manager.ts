@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import { CommandDefinition, SystemCommand, SystemCommandDefinition } from "../../../types/commands";
 import logger from "../../logwrapper";
 import util from "../../utility";
-import profileManager from "../../common/profile-manager";
+import { ProfileManager } from "../../common/profile-manager";
 import frontendCommunicator from "../../common/frontend-communicator";
 import accountAccess from "../../common/account-access";
 
@@ -43,7 +43,7 @@ class CommandManager extends TypedEmitter<Events> {
     }
 
     private getCommandsDb(): JsonDB {
-        return profileManager.getJsonDbInProfile("/chat/commands");
+        return ProfileManager.getJsonDbInProfile("/chat/commands");
     }
 
     /**

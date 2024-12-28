@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import { BasicViewer, FirebotViewer } from "../../types/viewers";
 import { SettingsManager } from "../common/settings-manager";
 import logger from "../logwrapper";
-import profileManager from "../common/profile-manager";
+import { ProfileManager } from "../common/profile-manager";
 import accountAccess from "../common/account-access";
 import userAccess from "../common/user-access";
 import currencyAccess from "../currency/currency-access";
@@ -147,7 +147,7 @@ class ViewerDatabase extends EventEmitter {
             return;
         }
 
-        const path = profileManager.getPathInProfile("db/users.db");
+        const path = ProfileManager.getPathInProfile("db/users.db");
         this._db = new Datastore({ filename: path });
         try {
             await this._db.loadDatabaseAsync();

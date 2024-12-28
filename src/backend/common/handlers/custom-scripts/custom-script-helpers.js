@@ -1,7 +1,7 @@
 "use strict";
 const twitchChat = require("../../../chat/twitch-chat");
 const twitchApi = require("../../../twitch-api/api");
-const profileManager = require("../../profile-manager");
+const { ProfileManager } = require("../../profile-manager");
 const settings = require('../../settings-manager').SettingsManager;
 const path = require("path");
 const logger = require("../../../logwrapper");
@@ -146,7 +146,7 @@ function buildRunRequest(scriptManifest, params, trigger) {
 }
 
 function getScriptPath(scriptName) {
-    const scriptsFolder = profileManager.getPathInProfile("/scripts");
+    const scriptsFolder = ProfileManager.getPathInProfile("/scripts");
     return path.resolve(scriptsFolder, scriptName);
 }
 

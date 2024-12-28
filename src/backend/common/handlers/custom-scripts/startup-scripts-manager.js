@@ -1,7 +1,7 @@
 "use strict";
 
 const logger = require("../../../logwrapper");
-const profileManager = require("../../../common/profile-manager");
+const { ProfileManager } = require("../../../common/profile-manager");
 const frontendCommunicator = require("../../../common/frontend-communicator");
 const { runStartUpScript, startUpScriptSaved, startUpScriptDeleted } = require("./custom-script-runner");
 
@@ -19,8 +19,7 @@ const { runStartUpScript, startUpScriptSaved, startUpScriptDeleted } = require("
 let startupScripts = {};
 
 function getStartupScriptsConfig() {
-    return profileManager
-        .getJsonDbInProfile("startup-scripts-config");
+    return ProfileManager.getJsonDbInProfile("startup-scripts-config");
 }
 
 function loadStartupConfig() {

@@ -3,7 +3,7 @@
 (function() {
     angular
         .module("firebotApp")
-        .factory("profileManager", function(backendCommunicator) {
+        .factory("profileManagerService", function(backendCommunicator) {
             const getLoggedInProfile = () => {
                 return backendCommunicator.fireEventSync("profiles:get-logged-in-profile", () => {
                     return this.getLoggedInProfile();

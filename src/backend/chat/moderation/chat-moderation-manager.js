@@ -1,16 +1,16 @@
 "use strict";
 const logger = require("../../logwrapper");
-const profileManager = require("../../common/profile-manager");
+const { ProfileManager } = require("../../common/profile-manager");
 const { Worker } = require("worker_threads");
 const frontendCommunicator = require("../../common/frontend-communicator");
 const rolesManager = require("../../roles/custom-roles-manager");
 const permitCommand = require("./url-permit-command");
 const utils = require("../../utility");
 
-const getChatModerationSettingsDb = () => profileManager.getJsonDbInProfile("/chat/moderation/chat-moderation-settings");
-const getBannedWordsDb = () => profileManager.getJsonDbInProfile("/chat/moderation/banned-words", false);
-const getBannedRegularExpressionsDb = () => profileManager.getJsonDbInProfile("/chat/moderation/banned-regular-expressions", false);
-const getUrlAllowlistDb = () => profileManager.getJsonDbInProfile("/chat/moderation/url-allowlist", false);
+const getChatModerationSettingsDb = () => ProfileManager.getJsonDbInProfile("/chat/moderation/chat-moderation-settings");
+const getBannedWordsDb = () => ProfileManager.getJsonDbInProfile("/chat/moderation/banned-words", false);
+const getBannedRegularExpressionsDb = () => ProfileManager.getJsonDbInProfile("/chat/moderation/banned-regular-expressions", false);
+const getUrlAllowlistDb = () => ProfileManager.getJsonDbInProfile("/chat/moderation/url-allowlist", false);
 
 // default settings
 let chatModerationSettings = {

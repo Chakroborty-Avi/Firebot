@@ -1,7 +1,7 @@
 "use strict";
 const { ipcMain } = require("electron");
 const logger = require("../logwrapper");
-const profileManager = require("../common/profile-manager");
+const { ProfileManager } = require("../common/profile-manager");
 const authManager = require("../auth/auth-manager");
 const EventEmitter = require("events");
 const { shell } = require('electron');
@@ -24,7 +24,7 @@ class IntegrationManager extends EventEmitter {
             authManager.registerAuthProvider(integration.definition.authProviderDetails);
         }
 
-        const integrationDb = profileManager.getJsonDbInProfile("/integrations");
+        const integrationDb = ProfileManager.getJsonDbInProfile("/integrations");
         try {
             const integrationSettings = integrationDb.getData(`/${integration.definition.id}`);
             if (integrationSettings != null) {
@@ -88,7 +88,7 @@ class IntegrationManager extends EventEmitter {
 
         integration.integration.on("settings-update", (id, settings) => {
             try {
-                const integrationDb = profileManager.getJsonDbInProfile("/integrations");
+                const integrationDb = ProfileManager.getJsonDbInProfile("/integrations");
                 integrationDb.push(`/${id}/settings`, settings);
 
                 const int = this.getIntegrationById(id);
@@ -113,7 +113,7 @@ class IntegrationManager extends EventEmitter {
 
     saveIntegrationUserSettings(id, settings, notifyInt = true) {
         try {
-            const integrationDb = profileManager.getJsonDbInProfile("/integrations");
+            const integrationDb = ProfileManager.getJsonDbInProfile("/integrations");
             integrationDb.push(`/${id}/userSettings`, settings);
 
             const int = this.getIntegrationById(id);
@@ -178,7 +178,7 @@ class IntegrationManager extends EventEmitter {
         integration.definition.auth = authData;
 
         try {
-            const integrationDb = profileManager.getJsonDbInProfile("/integrations");
+            const integrationDb = ProfileManager.getJsonDbInProfile("/integrations");
             integrationDb.push(`/${integration.definition.id}/auth`, authData);
         } catch (error) {
             logger.warn(error);
@@ -195,7 +195,7 @@ class IntegrationManager extends EventEmitter {
         integration.definition.accountId = accountId;
 
         try {
-            const integrationDb = profileManager.getJsonDbInProfile("/integrations");
+            const integrationDb = ProfileManager.getJsonDbInProfile("/integrations");
             integrationDb.push(`/${integration.definition.id}/accountId`, accountId);
         } catch (error) {
             logger.warn(error);
@@ -231,7 +231,7 @@ class IntegrationManager extends EventEmitter {
             return; // link failed, return.
         }
 
-        const integrationDb = profileManager.getJsonDbInProfile(
+        const integrationDb = ProfileManager.getJsonDbInProfile(
             "/integrations"
         );
         integrationDb.push(`/${int.definition.id}/linked`, true);
@@ -254,7 +254,7 @@ class IntegrationManager extends EventEmitter {
 
         try {
             int.integration.unlink();
-            const integrationDb = profileManager.getJsonDbInProfile("/integrations");
+            const integrationDb = ProfileManager.getJsonDbInProfile("/integrations");
             integrationDb.delete(`/${integrationId}`);
             int.definition.settings = null;
             int.definition.linked = false;

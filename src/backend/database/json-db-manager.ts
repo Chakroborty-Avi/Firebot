@@ -1,6 +1,4 @@
-"use strict";
-
-import profileManager from "../common/profile-manager";
+import { ProfileManager } from "../common/profile-manager";
 import logger from "../logwrapper";
 import { v4 as uuid } from "uuid";
 import { TypedEmitter, type ListenerSignature } from "tiny-typed-emitter";
@@ -45,7 +43,7 @@ class JsonDbManager<T extends Item, E extends ListenerSignature<E> = DefaultEven
         this.items = {};
 
         /** @protected */
-        this.db = profileManager.getJsonDbInProfile(path);
+        this.db = ProfileManager.getJsonDbInProfile(path);
     }
 
     loadItems(): void {

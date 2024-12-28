@@ -207,7 +207,7 @@ async function createMainWindow() {
     exports.mainWindow = mainWindow;
     global.renderWindow = mainWindow;
 
-    const profileManager = require("../../common/profile-manager");
+    const { ProfileManager } = require("../../common/profile-manager");
     const dataAccess = require("../../common/data-access");
     const menuTemplate = [
         {
@@ -231,7 +231,7 @@ async function createMainWindow() {
                     sublabel: "Open the folder where Firebot data is stored",
                     click: () => {
                         const rootFolder = path.resolve(
-                            profileManager.getPathInProfile("/")
+                            ProfileManager.getPathInProfile("/")
                         );
                         shell.openPath(rootFolder);
                     },

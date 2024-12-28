@@ -72,7 +72,7 @@
             </eos-container>
             `,
             controller: function($scope, utilityService, $rootScope, $q, logger,
-                $sce, backendCommunicator, profileManager) {
+                $sce, backendCommunicator, profileManagerService) {
 
                 const $ctrl = this;
 
@@ -80,7 +80,7 @@
                     logger.info("Attempting to load custom script parameters...");
                     $scope.isLoadingParameters = true;
 
-                    const scriptsFolder = profileManager.getPathInProfile("/scripts");
+                    const scriptsFolder = profileManagerService.getPathInProfile("/scripts");
                     const scriptFilePath = path.resolve(scriptsFolder, scriptName);
                     // Attempt to load the script
                     try {
@@ -170,7 +170,7 @@
 
                 $scope.isLoadingParameters = true;
 
-                const scriptFolderPath = profileManager.getPathInProfile("/scripts");
+                const scriptFolderPath = profileManagerService.getPathInProfile("/scripts");
 
                 const loadScriptFileNames = () => {
                     const scriptDirFileNames = fs.readdirSync(scriptFolderPath, {

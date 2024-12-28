@@ -1,7 +1,7 @@
 "use strict";
 
 const { ipcMain, globalShortcut } = require("electron");
-const profileManager = require("../../backend/common/profile-manager.js");
+const { ProfileManager } = require("../../backend/common/profile-manager.js");
 const { TriggerType } = require("../common/EffectType");
 const effectRunner = require("../common/effect-runner.js");
 
@@ -55,14 +55,14 @@ function registerAllHotkeys() {
     if (hotkeysCache == null) {
         return;
     }
-    hotkeysCache.filter(hk => hk.active).forEach(k => {
+    hotkeysCache.filter(hk => hk.active).forEach((k) => {
         registerHotkey(k.code);
     });
 }
 
 function refreshHotkeyCache(retry = 1) {
     // Setup events db.
-    const dbEvents = profileManager.getJsonDbInProfile("/hotkeys");
+    const dbEvents = ProfileManager.getJsonDbInProfile("/hotkeys");
 
     try {
         if (retry <= 3) {

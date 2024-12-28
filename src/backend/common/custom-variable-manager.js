@@ -45,9 +45,8 @@ cache.on("set", function(key, value) {
 cache.on("del", onCustomVariableDelete);
 
 function getVariableCacheDb() {
-    const profileManager = require("../common/profile-manager");
-    return profileManager
-        .getJsonDbInProfile("custom-variable-cache");
+    const { ProfileManager } = require("../common/profile-manager");
+    return ProfileManager.getJsonDbInProfile("custom-variable-cache");
 }
 
 exports.getInitialInspectorVariables = () =>

@@ -1,15 +1,15 @@
 "use strict";
 const Datastore = require("nedb");
-const profileManager = require("../common/profile-manager");
+const { ProfileManager } = require("../common/profile-manager");
 const logger = require("../logwrapper");
 const { app } = require("electron");
 
 let db;
 
 function connectStatsDatabase() {
-    const path = profileManager.getPathInProfile("db/stats.db");
+    const path = ProfileManager.getPathInProfile("db/stats.db");
     db = new Datastore({ filename: path });
-    db.loadDatabase(err => {
+    db.loadDatabase((err) => {
         if (err) {
             logger.error("Error Loading Database: ", err.message);
             logger.debug("Failed Database Path: ", path);
@@ -46,7 +46,7 @@ function insertStatRecord(eventType, userId, meta) {
     };
 
     // Insert this record into the stats database.
-    db.insert(ins, err => {
+    db.insert(ins, (err) => {
         if (err) {
             logger.error("Error adding user: ", err.message);
         }

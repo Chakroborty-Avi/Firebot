@@ -7,7 +7,7 @@ import JsonDbManager from "../database/json-db-manager";
 import frontendCommunicator from "../common/frontend-communicator";
 import accountAccess from "../common/account-access";
 import effectRunner from "../common/effect-runner";
-import profileManager from "../common/profile-manager";
+import { ProfileManager } from "../common/profile-manager";
 import { TriggerType } from "../common/EffectType";
 import { Counter } from "../../types/counters";
 import { EffectList } from "../../types/effects";
@@ -90,7 +90,7 @@ class CounterManager extends JsonDbManager<Counter> {
     }
 
     getCounterTxtFilePath(counterName: string): string {
-        const folder = profileManager.getPathInProfile("/counters/");
+        const folder = ProfileManager.getPathInProfile("/counters/");
         const sanitizedCounterName = sanitizeFileName(counterName);
 
         return path.join(folder, `${sanitizedCounterName}.txt`) || "";

@@ -1,6 +1,6 @@
 "use strict";
 
-const profileManager = require("./profile-manager");
+const { ProfileManager } = require("./profile-manager");
 const logger = require("../logwrapper");
 const frontendCommunicator = require("./frontend-communicator");
 const EventEmitter = require("events");
@@ -64,7 +64,7 @@ async function updateStreamerAccountSettings(streamerAccount) {
 }
 
 function saveAccountDataToFile(accountType) {
-    const authDb = profileManager.getJsonDbInProfile("/auth-twitch");
+    const authDb = ProfileManager.getJsonDbInProfile("/auth-twitch");
     const account = cache[accountType];
     try {
         authDb.push(`/${accountType}`, account);
@@ -80,7 +80,7 @@ function saveAccountDataToFile(accountType) {
  * @param {boolean} [emitUpdate=true] - If an account update event should be emitted
  */
 async function loadAccountData(emitUpdate = true) {
-    const authDb = profileManager.getJsonDbInProfile("/auth-twitch");
+    const authDb = ProfileManager.getJsonDbInProfile("/auth-twitch");
     try {
         const dbData = authDb.getData("/"),
             streamer = dbData.streamer,
@@ -195,7 +195,7 @@ function removeAccount(accountType) {
         return;
     }
 
-    const authDb = profileManager.getJsonDbInProfile("/auth-twitch");
+    const authDb = ProfileManager.getJsonDbInProfile("/auth-twitch");
     try {
         authDb.delete(`/${accountType}`);
     } catch (error) {

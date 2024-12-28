@@ -3,7 +3,7 @@ const { ipcMain, shell } = require("electron");
 const { v4: uuid } = require("uuid");
 const logger = require("../../../logwrapper");
 const utils = require("../../../utility");
-const profileManager = require("../../profile-manager");
+const { ProfileManager } = require("../../profile-manager");
 const { getScriptPath, buildRunRequest, mapParameters } = require("./custom-script-helpers");
 const effectRunner = require("../../effect-runner.js");
 import { SettingsManager } from "../../settings-manager";
@@ -254,7 +254,7 @@ async function stopAllScripts() {
 }
 
 ipcMain.on("openScriptsFolder", function () {
-    shell.openPath(profileManager.getPathInProfile("/scripts"));
+    shell.openPath(ProfileManager.getPathInProfile("/scripts"));
 });
 
 exports.runScript = runScript;

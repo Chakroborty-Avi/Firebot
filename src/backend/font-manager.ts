@@ -2,7 +2,7 @@ import fsp from "fs/promises";
 import path from "path";
 import logger from "./logwrapper";
 import frontendCommunicator from "./common/frontend-communicator";
-import profileManager from "./common/profile-manager";
+import { ProfileManager } from "./common/profile-manager";
 import webServer from "../server/http-server-manager";
 
 export enum FontFormat {
@@ -72,7 +72,7 @@ class FontManager {
     }
 
     get fontsFolder() {
-        return profileManager.getPathInProfile("/fonts");
+        return ProfileManager.getPathInProfile("/fonts");
     }
 
     get fontCssPath() {

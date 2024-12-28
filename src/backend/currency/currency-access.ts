@@ -3,7 +3,7 @@ import { FirebotViewer } from "../../types/viewers";
 import logger from "../logwrapper";
 import frontendCommunicator from "../common/frontend-communicator";
 import { SettingsManager } from "../common/settings-manager";
-import profileManager from "../common/profile-manager";
+import { ProfileManager } from "../common/profile-manager";
 
 export type Currency = {
     id: string;
@@ -47,7 +47,7 @@ class CurrencyAccess {
         }
 
         logger.debug("Refreshing currency cache");
-        const db = profileManager.getJsonDbInProfile("/currency/currency");
+        const db = ProfileManager.getJsonDbInProfile("/currency/currency");
 
         let issue2801 = false;
         const cache = db.getData("/");

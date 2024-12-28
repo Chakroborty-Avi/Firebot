@@ -2,7 +2,7 @@
 
 const { ipcMain } = require("electron");
 const logger = require("../logwrapper");
-const profileManager = require("../common/profile-manager");
+const { ProfileManager } = require("../common/profile-manager");
 
 const frontendCommunicator = require("../common/frontend-communicator");
 
@@ -13,7 +13,7 @@ let groups = {};
 let sortTags = [];
 
 function getEventsDb() {
-    return profileManager.getJsonDbInProfile(`${EVENTS_FOLDER}events`);
+    return ProfileManager.getJsonDbInProfile(`${EVENTS_FOLDER}events`);
 }
 
 function saveGroup(group) {
@@ -195,7 +195,7 @@ function getEvent(eventId) {
     return event;
 }
 
-ipcMain.on("getAllEventData", event => {
+ipcMain.on("getAllEventData", (event) => {
     logger.debug("got 'get all event data' request");
     event.returnValue = {
         mainEvents: Array.isArray(mainEvents) ? mainEvents : Object.values(mainEvents),
@@ -225,7 +225,7 @@ ipcMain.on("eventUpdate", (_, data) => {
     }
 });
 
-frontendCommunicator.on("event-sort-tags-update", tags => {
+frontendCommunicator.on("event-sort-tags-update", (tags) => {
     sortTags = tags;
     saveSortTags();
 });

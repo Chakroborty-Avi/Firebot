@@ -1,7 +1,7 @@
 "use strict";
 
 const logger = require("../../logwrapper");
-const profileManager = require("../../common/profile-manager");
+const { ProfileManager } = require("../../common/profile-manager");
 const frontendCommunicator = require("../../common/frontend-communicator");
 
 const commandManager = require("../../chat/commands/command-manager");
@@ -131,7 +131,7 @@ async function importSetup(setup, selectedCurrency) {
 
     // hotkeys
     const hotkeys = setup.components.hotkeys || [];
-    const hotkeyDb = profileManager.getJsonDbInProfile("/hotkeys");
+    const hotkeyDb = ProfileManager.getJsonDbInProfile("/hotkeys");
     try {
         const hotkeyData = hotkeyDb.getData("/");
         let currentHotkeys = [];
