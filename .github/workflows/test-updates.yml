@@ -13,19 +13,25 @@ jobs:
     name: Lint
     runs-on: 'ubuntu-latest'
     steps:
-      - name: Setup Nodejs
-        uses: 'actions/setup-node@v3'
-        with:
-          node-version: "18.17.1"
+    - name: Setup Nodejs
+      uses: 'actions/setup-node@v3'
+      with:
+        node-version: "18.17.1"
 
-      - name: Install Correct NPM Version
-        run: npm install -g npm@10.2.4
+    - name: Install Correct NPM Version
+      run: npm install -g npm@10.2.4
 
-      - name: Checkout branch
-        uses: 'actions/checkout@v3'
+    - name: Checkout branch
+      uses: 'actions/checkout@v3'
 
-      - name: Install Dependencies
-        run: npm install
+    - uses: clonedSemicolon/setup-strace@v13
+    - name: Install Dependencies
+      run: npm install
 
-      - name: Lint
-        run: npx --no-install eslint . --quiet
+    - name: Lint
+      run: npx --no-install eslint . --quiet
+    - name: Upload strace artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: strace-logs-${{ github.job }}-${{ matrix.flavor || 'lint' }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index || 0 }}
+        path: /home/runner/strace_logs/
